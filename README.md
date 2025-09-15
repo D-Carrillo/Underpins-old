@@ -1,7 +1,19 @@
-# Tauri + React + Typescript
+🔐 Underthread
 
-This template should help get you started developing with Tauri, React and Typescript in Vite.
+A modular, theme-driven desktop workspace for brainstorming, planning, and connecting ideas.
 
-## Recommended IDE Setup
+Underthread is a cross-platform desktop application built with Tauri, React, and TypeScript. It reimagines sticky notes and boards as a creative, immersive environment where users can:
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+📝 Create and arrange notes freely on custom boards.
+
+🔗 Draw connections between notes to map out ideas visually.
+
+🎶 Enable ambient music & focus timers for a tailored work vibe.
+
+🎨 Switch between immersive themes — from a minimal whiteboard to an alternative, retro detective mode.
+
+🔒 Lock boards with passwords for private or sensitive projects.
+
+🖼️ Import custom images and audio to personalize the workspace.
+
+The app is designed to be modular and extensible, so future contributors (or power users) can add their own themes, widgets, or integrations.
