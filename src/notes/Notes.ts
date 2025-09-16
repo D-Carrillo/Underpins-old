@@ -4,7 +4,7 @@
 
 */
 
-abstract class Notes 
+export abstract class Notes
 {
     readonly id: number;
     readonly timeOfCreation: Date; 
@@ -16,5 +16,7 @@ abstract class Notes
         this.timeOfCreation = new Date();
         this.timeofLastEdition = new Date();
     }
+
+    //update time of editing function 
 
 } 

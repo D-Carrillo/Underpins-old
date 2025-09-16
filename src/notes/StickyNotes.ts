@@ -4,9 +4,10 @@
 
 */
 
+import { Notes } from "./Notes";
 import { MainStickyNotesColors } from "../palettes/MainStickyNotesColors";
 
-class StickyNotes extends Notes 
+export class StickyNotes extends Notes 
 {
     content: string; 
     color: MainStickyNotesColors; 
