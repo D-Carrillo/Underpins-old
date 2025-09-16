@@ -10,11 +10,11 @@ abstract class Notes
     readonly timeOfCreation: Date; 
     timeofLastEdition: Date; 
 
-    constructor(id: number) {
+    constructor(id: number) 
+    {
         this.id = id; 
         this.timeOfCreation = new Date();
         this.timeofLastEdition = new Date();
-
     }
 
 } 
