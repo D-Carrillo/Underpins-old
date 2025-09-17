@@ -5,11 +5,24 @@
 */
 
 import { Group, Circle, Text } from "react-konva";
+import { StickyNotes } from "../notes/StickyNotes";
+import { MainStickyNotesColors } from "../palettes/MainStickyNotesColors";
 
-export const AddNoteButton = () => {
+type AddNoteButtonProps = {
+    onAddNote: (note: StickyNotes) => void;
+};
+
+export const AddNoteButton = ({onAddNote}: AddNoteButtonProps ) => {
     const handleAddNote = () => {
         alert("✅ Button clicked!");
-        console.log("this")
+        let text = prompt("What is your information?");
+        let id = parseInt(prompt("ID") as string);
+
+        let color = MainStickyNotesColors;
+        let note = new StickyNotes( text!, id!,  color.LightTaupe);
+
+        onAddNote(note);
+
     };
 
     return (

@@ -8,16 +8,16 @@ import { useEffect, useState } from "react";
 import { Stage, Layer } from "react-konva";
 import {StickyNoteUI} from '../UI-notes/UIStickyNotes';
 import { StickyNotes } from "../notes/StickyNotes";
-import { MainStickyNotesColors } from "../palettes/MainStickyNotesColors";
 import { AddNoteButton } from "../UI-notes/AddNotesButton.tsx"
 
 
-
-let color = MainStickyNotesColors;
-let note = new StickyNotes("This is the information, this", 3,  color.LightTaupe);
-
 export default function Board()
 {
+    const [notes, setNotes] = useState<StickyNotes[]>([]);
+
+    const handleAddNote = ( note: StickyNotes) => {
+      setNotes((prev) => [...prev,note]);
+    };
     const [Size, setSize] = useState({
         width: window.innerWidth,
         height: window.innerHeight,
@@ -34,8 +34,10 @@ export default function Board()
         <div>
             <Stage width={Size.width} height={Size.height}>
                 <Layer>
-                    <AddNoteButton/>
-                    <StickyNoteUI currNote={note}/>
+                    <AddNoteButton onAddNote={handleAddNote}/>
+                    {notes.map((n) => (
+                        <StickyNoteUI currNote={n}/>
+                    ))}
                 </Layer>
             </Stage>
         </div>
