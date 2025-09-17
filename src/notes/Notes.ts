@@ -10,7 +10,7 @@ export abstract class Notes
     readonly timeOfCreation: Date; 
     timeOfLastEdition: Date;
 
-    constructor(id: number) 
+    protected constructor(id: number)
     {
         this.id = id; 
         this.timeOfCreation = new Date();

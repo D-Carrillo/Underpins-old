@@ -9,6 +9,7 @@ import { Stage, Layer } from "react-konva";
 import {StickyNoteUI} from '../UI-notes/UIStickyNotes';
 import { StickyNotes } from "../notes/StickyNotes";
 import { MainStickyNotesColors } from "../palettes/MainStickyNotesColors";
+import { AddNoteButton } from "../UI-notes/AddNotesButton.tsx"
 
 
 
@@ -30,10 +31,13 @@ export default function Board()
     }, []);
 
     return (
-        <Stage width={Size.width} height={Size.height}>
+        <div>
+            <Stage width={Size.width} height={Size.height}>
                 <Layer>
+                    <AddNoteButton/>
                     <StickyNoteUI currNote={note}/>
                 </Layer>
-        </Stage>
+            </Stage>
+        </div>
     );
 }
