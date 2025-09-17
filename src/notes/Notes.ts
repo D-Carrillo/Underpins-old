@@ -17,6 +17,4 @@ export abstract class Notes
         this.timeofLastEdition = new Date();
     }
 
-    //update time of editing function 
-
 } 

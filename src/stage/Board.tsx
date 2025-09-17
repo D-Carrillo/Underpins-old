@@ -5,7 +5,8 @@
 */
 
 import { useEffect, useState } from "react";
-import { Stage, Layer, Rect } from "react-konva";
+import { Stage, Layer } from "react-konva";
+import {StickyNoteUI} from '../UI-notes/UIStickyNotes';
 
 export default function Board()
 {
@@ -24,7 +25,8 @@ export default function Board()
     return (
         <Stage width={Size.width} height={Size.height}>
                 <Layer>
-                    <Rect x={50} y={100} width={100} height={200} fill={"red"}></Rect>
+                    <StickyNoteUI/>
+                    <StickyNoteUI/>
                 </Layer>
         </Stage>
     );
