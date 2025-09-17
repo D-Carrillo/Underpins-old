@@ -7,6 +7,13 @@
 import { useEffect, useState } from "react";
 import { Stage, Layer } from "react-konva";
 import {StickyNoteUI} from '../UI-notes/UIStickyNotes';
+import { StickyNotes } from "../notes/StickyNotes";
+import { MainStickyNotesColors } from "../palettes/MainStickyNotesColors";
+
+
+
+let color = MainStickyNotesColors;
+let note = new StickyNotes("This is the information, this", 3,  color.LightTaupe);
 
 export default function Board()
 {
@@ -25,8 +32,7 @@ export default function Board()
     return (
         <Stage width={Size.width} height={Size.height}>
                 <Layer>
-                    <StickyNoteUI/>
-                    <StickyNoteUI/>
+                    <StickyNoteUI currNote={note}/>
                 </Layer>
         </Stage>
     );

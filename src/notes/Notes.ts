@@ -8,13 +8,13 @@ export abstract class Notes
 {
     readonly id: number;
     readonly timeOfCreation: Date; 
-    timeofLastEdition: Date; 
+    timeOfLastEdition: Date;
 
     constructor(id: number) 
     {
         this.id = id; 
         this.timeOfCreation = new Date();
-        this.timeofLastEdition = new Date();
+        this.timeOfLastEdition = new Date();
     }
 
 } 

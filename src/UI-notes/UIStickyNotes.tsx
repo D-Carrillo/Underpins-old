@@ -7,16 +7,17 @@
 */
 
 import { Group, Rect, Text } from 'react-konva'
+import { StickyNotes } from "../notes/StickyNotes";
 
-const text = "This is my test";
 
-export const StickyNoteUI = () => {
+
+export const StickyNoteUI = ({currNote}: {currNote: StickyNotes}) => {
     return(
         <Group x={50} y={50} draggable>
             <Rect
                 x={30}
                 y={30}
-                fill="red"
+                fill={currNote.color}
                 shadowColor="black"
                 shadowBlur={10}
                 shadowOpacity={0.2}
@@ -26,7 +27,7 @@ export const StickyNoteUI = () => {
             <Text
                 x={30}
                 y={30}
-                text={text}
+                text={currNote.content}
                 fontSize={18}
                 padding={20}
                 align="center"
