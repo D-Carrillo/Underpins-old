@@ -1,5 +1,5 @@
-import { test, expect } from 'vitest';
+import { test, assert } from 'vitest';
 
 test("Canary Test", () => {
-    expect(true).toBe(true);
+    assert.isTrue(true);
 });

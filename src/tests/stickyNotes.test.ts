@@ -1,24 +1,42 @@
-import { test, expect } from 'vitest';
+import { test, expect, describe } from 'vitest';
 import { StickyNotes } from '../notes/StickyNotes.ts';
 
+function any<T>(): T {
+    return undefined as unknown as T;
+}
 test("SkickyNote loads information", () => {
-    var note = new StickyNotes("Information");
+    const note = new StickyNotes("Information", any<number>(), any<number>());
 
     expect(note.content).toBe("Information");
 });
 
 test("Created at the right time", () =>{
-    var before = Date.now();
-    var note = new StickyNotes("Information"); 
-    var after = Date.now();
+    const before = Date.now();
+    const note = new StickyNotes(any<string>(), any<number>(), any<number>()); 
+    const after = Date.now();
 
     expect(note.createAt).toBeGreaterThanOrEqual(before);
     expect(note.createAt).toBeLessThanOrEqual(after);
 });
 
 test("Constructor makes unique IDs", () => {
-    var note1 = new StickyNotes("Very important information");
-    var note2 = new StickyNotes("Ultra important infromation");
+    const note1 = new StickyNotes(any<string>(), any<number>(), any<number>());
+    const note2 = new StickyNotes(any<string>(), any<number>(), any<number>());
 
     expect(note1.id).not.toBe(note2.id);
+});
+
+describe("Coordinate loading test", () => {
+    test.each([
+    [0,0], 
+    [-1,-1],
+    [1,1],
+    [1,-1],
+    [-1,1],
+])("Creates cordinates (%i, %i)", (x,y) => {
+    const note = new StickyNotes(any<string>(), x, y); 
+
+    expect(note.position.x).toBe(x);
+    expect(note.position.y).toBe(y);
+    });
 });
