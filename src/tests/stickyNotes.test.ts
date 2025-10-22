@@ -40,3 +40,12 @@ describe("Coordinate loading test", () => {
     expect(note.position.y).toBe(y);
     });
 });
+
+test("Change the note's coordinates", () => {
+    const note = new StickyNotes(any<string>(), any<number>(), any<number>());
+
+    note.changeCoordinate(2,-1);
+
+    expect(note.position.x).toBe(2);
+    expect(note.position.y).toBe(-1);
+});
