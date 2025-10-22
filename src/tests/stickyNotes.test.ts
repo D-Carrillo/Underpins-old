@@ -41,11 +41,19 @@ describe("Coordinate loading test", () => {
     });
 });
 
-test("Change the note's coordinates", () => {
-    const note = new StickyNotes(any<string>(), any<number>(), any<number>());
+describe("Changing the coodinates test", () => {
+    test.each([
+        [2,-1],
+        [0.43, 333], 
+        [0,0],
+        [-2323333,3333],
+        [-12,-44,]
+    ])("Change the note's coordinates", (x,y) => {
+        const note = new StickyNotes(any<string>(), any<number>(), any<number>());
 
-    note.changeCoordinate(2,-1);
+        note.changeCoordinate(x,y);
 
-    expect(note.position.x).toBe(2);
-    expect(note.position.y).toBe(-1);
+        expect(note.position.x).toBe(x);
+        expect(note.position.y).toBe(y);
+    });
 });
