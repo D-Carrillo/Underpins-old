@@ -4,18 +4,18 @@
 
 */
 
-import { Notes } from "./Notes";
-import { MainStickyNotesColors } from "../palettes/MainStickyNotesColors";
 
-export class StickyNotes extends Notes 
+export class StickyNotes 
 {
+    createAt: number; 
     content: string; 
-    color: MainStickyNotesColors; 
+    id: string;
 
-    constructor(content: string, id: number, color: MainStickyNotesColors) 
+    constructor(content: string) 
     {
-        super(id);
-        this.content = content; 
-        this.color = color;       
+        this.createAt = Date.now();
+        this.content = content;     
+        this.id = `${this.createAt} + ${Math.random().toString(36).substring(2,9)}`
     }
 }
+
