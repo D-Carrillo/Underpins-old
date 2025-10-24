@@ -1,9 +1,3 @@
-/* 
-
-    STICKY NOTES CLASS - This class is for the normal sticky notes and their methods 
-
-*/
-
 interface coordinates {
     x: number;
     y: number;
