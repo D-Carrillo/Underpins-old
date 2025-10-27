@@ -1,18 +1,18 @@
 import { test, expect, describe } from 'vitest';
-import { StickyNotes } from '../notes/StickyNotes.ts';
+import { WordNotes as TextNode } from '../notes/WordNotes.ts';
 
 function any<T>(): T {
     return undefined as unknown as T;
 }
 test("SkickyNote loads information", () => {
-    const note = new StickyNotes("Information", any<number>(), any<number>());
+    const note = new TextNode("Information", any<number>(), any<number>());
 
     expect(note.content).toBe("Information");
 });
 
 test("Created at the right time", () =>{
     const before = Date.now();
-    const note = new StickyNotes(any<string>(), any<number>(), any<number>()); 
+    const note = new TextNode(any<string>(), any<number>(), any<number>()); 
     const after = Date.now();
 
     expect(note.createAt).toBeGreaterThanOrEqual(before);
@@ -20,8 +20,8 @@ test("Created at the right time", () =>{
 });
 
 test("Constructor makes unique IDs", () => {
-    const note1 = new StickyNotes(any<string>(), any<number>(), any<number>());
-    const note2 = new StickyNotes(any<string>(), any<number>(), any<number>());
+    const note1 = new TextNode(any<string>(), any<number>(), any<number>());
+    const note2 = new TextNode(any<string>(), any<number>(), any<number>());
 
     expect(note1.id).not.toBe(note2.id);
 });
@@ -34,7 +34,7 @@ describe("Coordinate loading test", () => {
     [1,-1],
     [-1,1],
 ])("Creates cordinates (%i, %i)", (x,y) => {
-    const note = new StickyNotes(any<string>(), x, y); 
+    const note = new TextNode(any<string>(), x, y); 
 
     expect(note.position.x).toBe(x);
     expect(note.position.y).toBe(y);
@@ -49,7 +49,7 @@ describe("Changing the coodinates test", () => {
         [-2323333,3333],
         [-12,-44,]
     ])("Change the note's coordinates", (x,y) => {
-        const note = new StickyNotes(any<string>(), any<number>(), any<number>());
+        const note = new TextNode(any<string>(), any<number>(), any<number>());
 
         note.changeCoordinate(x,y);
 

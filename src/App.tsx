@@ -1,7 +1,7 @@
 import "./App.css";
 import Board from "./components/board.tsx"
 
-function App() {
+const App = () => {
 
   return (
     <Board></Board>

@@ -1,11 +1,26 @@
-import { Stage, Layer, Circle } from "react-konva";
+import { Stage} from "react-konva";
+import { useEffect, useState } from "react";
+import TextNodes from "./TextNode.tsx"
 
-function Board() {
+const Board = () => {
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight)
+
+    useEffect(() => {
+        const handleResize = () => {
+          setWindowWidth(window.innerWidth);
+          setWindowHeight(window.innerHeight); 
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
     return (
-        <Stage width={window.innerWidth} height={window.innerHeight} style={{backgroundColor: "f4e4ac"}}>
-            <Layer>
-                <Circle x={30} y={40} radius={30} fill={"Blue"}></Circle>
-            </Layer>
+        <Stage width={windowWidth} height={windowHeight}>
+            <TextNodes/>
         </Stage>
     ); 
 };

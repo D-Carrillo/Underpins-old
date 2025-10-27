@@ -3,7 +3,7 @@ interface coordinates {
     y: number;
 }
 
-export class StickyNotes 
+export class WordNotes 
 {
     createAt: number; 
     content: string; 
