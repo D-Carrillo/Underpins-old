@@ -1,20 +1,43 @@
 import { Rect, Layer, Text, Group } from "react-konva";
 import { TextNode as TextN } from "../notes/TextNode.ts"
-
-function getMiddle(num: number): number {
-    return num / 2;
-}
+import { useState, useRef, useEffect } from "react";
 
 
 function TextNode() {
-    var note = new TextN("Important information, but it is also really long information", window.innerWidth, window.innerHeight);
+    const noteRef = useRef(new TextN("Important information, but it is also really long information", window.innerWidth, window.innerHeight));
+
+    const note = noteRef.current
+
+    var [position, setPosition] = useState({
+        coorX: note.position.x,
+        coorY: note.position.y,
+    });
+
+    const [, setUpdateTrigger] = useState(0);
+
+    useEffect(() => {
+        note.changeCoordinate(position.coorX, position.coorY);
+
+        setUpdateTrigger(prev => prev +1);
+    },[position]);
 
     return (
         <Layer>
             <Group
                 draggable={true}
-                x={getMiddle(note.position.x)}
-                y={getMiddle(note.position.y)}
+                x={position.coorX}
+                y={position.coorY}
+
+                onDragEnd={(e) => {
+                    const node = e.target;
+
+                    const absolutePosition = node.absolutePosition();
+
+                    setPosition({
+                        coorX: absolutePosition.x,
+                        coorY: absolutePosition.y,
+                    });
+                }}
                 >
                 <Rect
                     width={note.sizes.width}
@@ -37,6 +60,10 @@ function TextNode() {
 
             <Text
                 text={"( " + String(note.position.x) + ", " + String(note.position.y) + " )"}
+            />
+            <Text
+                x={300}
+                text={"( " + String(position.coorX) + ", " + String(position.coorY) + " )"}
             />
         </Layer>
     );
