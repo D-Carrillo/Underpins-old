@@ -7,9 +7,11 @@ import "../components-styling/TextNode.css";
 
 function TextNode() {
     const noteRef = useRef(new TextN("Important information, but it is also really long information", window.innerWidth / 2, window.innerHeight / 2));
-    var [editingEnable, setEditingEnable] = useState(false);
 
     const note = noteRef.current
+
+    var [textValue, setTextValue] = useState(note.content);
+    var [editingEnable, setEditingEnable] = useState(false);
 
     var [position, setPosition] = useState({
         coorX: note.position.x,
@@ -25,6 +27,10 @@ function TextNode() {
     },[position]);
 
     useEffect(() => {
+        note.updateContent(textValue);
+    }, [textValue]);
+
+    useEffect(() => {
         const keyDownHandler = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
                 event.preventDefault();
@@ -38,6 +44,13 @@ function TextNode() {
             document.removeEventListener('keydown', keyDownHandler);
         };
     }, []);
+
+    const SendTextChangeToNodeObject = (event: any) => {
+
+        const newContent = event.target.value;
+
+        setTextValue(newContent);
+    };
 
     return (
         <Layer>
@@ -78,9 +91,12 @@ function TextNode() {
                         width: `${note.sizes.width}px`,
                         height: `${note.sizes.height}px`,
                     }}
+
+                    value={textValue}
+
+                    onChange={SendTextChangeToNodeObject}
                     
-                    >
-                        {note.content}</textarea>
+                    />
                 </Html>
 
                 ) : (
