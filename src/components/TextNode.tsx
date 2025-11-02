@@ -1,10 +1,12 @@
 import { Rect, Layer, Text, Group } from "react-konva";
+import { Html } from "react-konva-utils";
 import { TextNode as TextN } from "../notes/TextNode.ts"
 import { useState, useRef, useEffect } from "react";
 
 
 function TextNode() {
-    const noteRef = useRef(new TextN("Important information, but it is also really long information", window.innerWidth, window.innerHeight));
+    const noteRef = useRef(new TextN("Important information, but it is also really long information", window.innerWidth / 2, window.innerHeight / 2));
+    var [editingEnable, setEditingEnable] = useState(false);
 
     const note = noteRef.current
 
@@ -20,6 +22,22 @@ function TextNode() {
 
         setUpdateTrigger(prev => prev +1);
     },[position]);
+
+    useEffect(() => {
+        const keyDownHandler = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+            }
+
+            setEditingEnable(false);
+        };
+
+        document.addEventListener('keydown', keyDownHandler);
+
+        return() => {
+            document.removeEventListener('keydown', keyDownHandler);
+        };
+    }, []);
 
     return (
         <Layer>
@@ -38,6 +56,11 @@ function TextNode() {
                         coorY: absolutePosition.y,
                     });
                 }}
+
+                onDblClick={() => (
+                    setEditingEnable(true)
+                )}
+
                 >
                 <Rect
                     width={note.sizes.width}
@@ -45,6 +68,14 @@ function TextNode() {
                     fill="#fffc99"
                     shadowBlur={10}
                 />
+                { editingEnable ? (
+
+                <Html>
+                    <textarea>{note.content}</textarea>
+                </Html>
+
+                ) : (
+
                 <Text
                     width={note.sizes.width}
                     height={note.sizes.height}
@@ -53,18 +84,8 @@ function TextNode() {
                     text={note.content}
                     fontSize={15}
                 />
-
-                <Text 
-                />
+                )}
             </Group>
-
-            <Text
-                text={"( " + String(note.position.x) + ", " + String(note.position.y) + " )"}
-            />
-            <Text
-                x={300}
-                text={"( " + String(position.coorX) + ", " + String(position.coorY) + " )"}
-            />
         </Layer>
     );
 };
