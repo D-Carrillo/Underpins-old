@@ -2,6 +2,7 @@ import { Rect, Layer, Text, Group } from "react-konva";
 import { Html } from "react-konva-utils";
 import { TextNode as TextN } from "../notes/TextNode.ts"
 import { useState, useRef, useEffect } from "react";
+import "../components-styling/TextNode.css";
 
 
 function TextNode() {
@@ -27,9 +28,8 @@ function TextNode() {
         const keyDownHandler = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
                 event.preventDefault();
+                setEditingEnable(false);
             }
-
-            setEditingEnable(false);
         };
 
         document.addEventListener('keydown', keyDownHandler);
@@ -71,7 +71,16 @@ function TextNode() {
                 { editingEnable ? (
 
                 <Html>
-                    <textarea>{note.content}</textarea>
+                    <textarea className="TextNodeEditorInput"
+                    
+                    style={{
+                        position: `absolute`,
+                        width: `${note.sizes.width}px`,
+                        height: `${note.sizes.height}px`,
+                    }}
+                    
+                    >
+                        {note.content}</textarea>
                 </Html>
 
                 ) : (
