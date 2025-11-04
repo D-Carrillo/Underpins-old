@@ -1,4 +1,6 @@
-const SQUARE_SIZE = 100;
+const WIDTH_SIZE = 200;
+const HEIGHT_SIZE = 150;
+const NOTE_CONTENT_LIMIT = 270;
 
 interface coordinates {
     x: number;
@@ -24,7 +26,7 @@ export class TextNode
         this.content = content;     
         this.id = `${this.createAt} + ${Math.random().toString(36).substring(2,9)}`;
         this.position = {x: x_coordinate, y: y_coordinate};
-        this.sizes = {height: SQUARE_SIZE, width:SQUARE_SIZE};
+        this.sizes = {height: HEIGHT_SIZE, width:WIDTH_SIZE};
 
     }
 
@@ -34,7 +36,7 @@ export class TextNode
     }
 
     updateContent(newContent: string) {
-        if (newContent.length > 300) {throw new Error("Overreach char limit in a note")}
+        if (newContent.length > NOTE_CONTENT_LIMIT) {throw new Error("Overreach char limit in a note")}
 
         this.content = newContent;
     }

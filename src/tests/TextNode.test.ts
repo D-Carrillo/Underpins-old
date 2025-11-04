@@ -62,7 +62,7 @@ describe("Changing the TextNote content test", () => {
         ["Let's update"],
         [""],
         ["This".repeat(10)],
-        ["x".repeat(300)]
+        ["x".repeat(270)]
     ])("Changing the TextNode content", (content) => {
         const note = new TextNode(any<string>(), any<number>(), any<number>());
 
@@ -83,5 +83,5 @@ test("Content char limit is more than it should be test", () => {
 test("Note should be initialized to 100x100", () => {
     const note = new TextNode(any<string>(), any<number>(), any<number>());
     
-    expect(note.sizes).toEqual({ height:100, width:100 });
+    expect(note.sizes).toEqual({ height:150, width:200 });
 }); 

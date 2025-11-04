@@ -1,12 +1,17 @@
-import { Rect, Layer, Text, Group } from "react-konva";
+import { Rect, Text, Group } from "react-konva";
 import { Html } from "react-konva-utils";
 import { TextNode as TextN } from "../notes/TextNode.ts"
 import { useState, useRef, useEffect } from "react";
 import "../components-styling/TextNode.css";
 
+interface TextNodeProps {
+    onStartEditing?: () => void;
+    onStopEditing?: () => void;
+}
 
-function TextNode() {
-    const noteRef = useRef(new TextN("Important information, but it is also really long information", window.innerWidth / 2, window.innerHeight / 2));
+
+const TextNode: React.FC<TextNodeProps> = ({  onStartEditing, onStopEditing }) => {
+    const noteRef = useRef(new TextN("Edit here", window.innerWidth / 2, window.innerHeight / 2));
 
     const note = noteRef.current
 
@@ -32,9 +37,10 @@ function TextNode() {
 
     useEffect(() => {
         const keyDownHandler = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') {
+            if (event.key === 'Escape' && editingEnable) {
                 event.preventDefault();
                 setEditingEnable(false);
+                onStopEditing?.();
             }
         };
 
@@ -43,7 +49,7 @@ function TextNode() {
         return() => {
             document.removeEventListener('keydown', keyDownHandler);
         };
-    }, []);
+    }, [editingEnable]);
 
     const SendTextChangeToNodeObject = (event: any) => {
 
@@ -53,65 +59,68 @@ function TextNode() {
     };
 
     return (
-        <Layer>
-            <Group
-                draggable={true}
-                x={position.coorX}
-                y={position.coorY}
+        <Group
+            draggable={true}
+            x={position.coorX}
+            y={position.coorY}
 
-                onDragEnd={(e) => {
-                    const node = e.target;
+            onDragEnd={(event) => {
+                const node = event.target;
 
-                    const absolutePosition = node.absolutePosition();
+                const absolutePosition = node.absolutePosition();
 
-                    setPosition({
-                        coorX: absolutePosition.x,
-                        coorY: absolutePosition.y,
-                    });
+                setPosition({
+                    coorX: absolutePosition.x,
+                    coorY: absolutePosition.y,
+                });
+            }}
+
+            onDblClick={() => {
+                setEditingEnable(true);
+                onStartEditing?.();
+            }}
+
+            >
+            <Rect
+                width={note.sizes.width}
+                height={note.sizes.height}
+                fill="#fffc99"
+                shadowBlur={editingEnable ? 20: 10}
+                shadowColor={editingEnable ? "#9a864fff" : undefined}
+            />
+
+            { editingEnable ? (
+
+            <Html>
+                <textarea className="TextNodeEditorInput"
+                
+                autoFocus
+
+                style={{
+                    position: `absolute`,
+                    width: `${note.sizes.width}px`,
+                    height: `${note.sizes.height}px`,
                 }}
 
-                onDblClick={() => (
-                    setEditingEnable(true)
-                )}
+                value={textValue}
 
-                >
-                <Rect
-                    width={note.sizes.width}
-                    height={note.sizes.height}
-                    fill="#fffc99"
-                    shadowBlur={10}
-                />
-                { editingEnable ? (
-
-                <Html>
-                    <textarea className="TextNodeEditorInput"
+                onChange={SendTextChangeToNodeObject}
                     
-                    style={{
-                        position: `absolute`,
-                        width: `${note.sizes.width}px`,
-                        height: `${note.sizes.height}px`,
-                    }}
-
-                    value={textValue}
-
-                    onChange={SendTextChangeToNodeObject}
-                    
-                    />
-                </Html>
-
-                ) : (
-
-                <Text
-                    width={note.sizes.width}
-                    height={note.sizes.height}
-                    wrap="word"
-
-                    text={note.content}
-                    fontSize={15}
                 />
-                )}
-            </Group>
-        </Layer>
+            </Html>
+
+            ) : (
+
+            <Text
+                width={note.sizes.width}
+                height={note.sizes.height}
+                wrap="word"
+
+                text={note.content}
+                fontSize={15}
+            />
+            )}
+        </Group>
     );
 };
 
