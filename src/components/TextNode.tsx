@@ -7,11 +7,13 @@ import "../components-styling/TextNode.css";
 interface TextNodeProps {
     onStartEditing?: () => void;
     onStopEditing?: () => void;
+    posX: number,
+    posY: number,
 }
 
 
-const TextNode: React.FC<TextNodeProps> = ({  onStartEditing, onStopEditing }) => {
-    const noteRef = useRef(new TextN("Edit here", window.innerWidth / 2, window.innerHeight / 2));
+const TextNode: React.FC<TextNodeProps> = ({  onStartEditing, onStopEditing, posX, posY }) => {
+    const noteRef = useRef(new TextN("Edit here", posX, posY));
 
     const note = noteRef.current
 

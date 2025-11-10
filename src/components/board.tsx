@@ -4,6 +4,9 @@ import TextNodes from "./TextNode.tsx";
 
 interface NodeData {
   id: number;
+  posX: number;
+  posY: number;
+
 }
 
 const Board = () => {
@@ -11,13 +14,13 @@ const Board = () => {
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const [isStageLocked, setIsStageLocked] = useState<boolean>(false);
   const [nodes, setNodes] = useState<NodeData[]>([]);
-
+  
   const handleStartEditing = () => {setIsStageLocked(true)}
   const handleStopEditing = () => {setIsStageLocked(false)}
 
-  const addNode = () => {
+  const addNode = (x: number, y: number) => {
     const newID = nodes.length > 0 ? nodes[nodes.length - 1].id + 1 : 1;
-    const newNode = { id: newID };
+    const newNode = { id: newID, posX: x, posY: y};
     setNodes((prevNodes) => [...prevNodes, newNode]);
   };
 
@@ -49,7 +52,7 @@ const Board = () => {
       const button = document.createElement("button");
       button.textContent = "Add New Node";
       button.addEventListener("click", () => {
-        addNode();
+        addNode(event.pageX, event.pageY);
         closeMenu();
       });
 
@@ -78,7 +81,7 @@ const Board = () => {
     <Stage width={windowWidth} height={windowHeight}>
         <Layer>
         {nodes.map((node) => (
-            <TextNodes key={node.id} onStopEditing={handleStopEditing} onStartEditing={handleStartEditing} />
+            <TextNodes key={node.id} onStopEditing={handleStopEditing} onStartEditing={handleStartEditing} posX={node.posX} posY={node.posY} />
         ))}
 
         {isStageLocked && (
