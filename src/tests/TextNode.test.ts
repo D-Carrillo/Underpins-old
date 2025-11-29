@@ -33,7 +33,7 @@ describe("Coordinate loading test", () => {
     [1,1],
     [1,-1],
     [-1,1],
-])("Creates cordinates (%i, %i)", (x,y) => {
+])("Creates coordinates (%i, %i)", (x,y) => {
     const note = new TextNode(any<string>(), x, y); 
 
     expect(note.position.x).toBe(x);
@@ -41,7 +41,7 @@ describe("Coordinate loading test", () => {
     });
 });
 
-describe("Changing the coodinates test", () => {
+describe("Changing the coordinates test", () => {
     test.each([
         [2,-1],
         [0.43, 333], 
@@ -80,7 +80,7 @@ test("Content char limit is more than it should be test", () => {
     expect(() => note.updateContent(content)).toThrowError("Overreach char limit in a note");
 }); 
 
-test("Note should be initialized to 100x100", () => {
+test("Note should be initialized to 150x200", () => {
     const note = new TextNode(any<string>(), any<number>(), any<number>());
     
     expect(note.sizes).toEqual({ height:150, width:200 });
