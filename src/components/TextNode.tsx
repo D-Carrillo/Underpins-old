@@ -1,24 +1,16 @@
 import { Rect, Text, Group } from "react-konva";
-import { Html } from "react-konva-utils";
 import { TextNode as TextN } from "../notes/TextNode.ts"
 import React, { useState, useRef, useEffect } from "react";
-import "../components-styling/TextNode.css";
 
 interface TextNodeProps {
-    onStartEditing?: () => void;
-    onStopEditing?: () => void;
     posX: number,
     posY: number,
 }
 
-
-    const TextNode: React.FC<TextNodeProps> = ({  onStartEditing, onStopEditing, posX, posY }) => {
+const TextNode: React.FC<TextNodeProps> = ({ posX, posY }) => {
     const noteRef = useRef(new TextN("Edit here", posX, posY));
 
-    const note = noteRef.current
-
-    let [textValue, setTextValue] = useState(note.content);
-    let [editingEnable, setEditingEnable] = useState(false);
+    const note = noteRef.current;
 
     let [position, setPosition] = useState({
         coorX: note.position.x,
@@ -29,89 +21,35 @@ interface TextNodeProps {
 
     useEffect(() => {
         note.changeCoordinate(position.coorX, position.coorY);
-
-        setUpdateTrigger(prev => prev +1);
-    },[position]);
-
-    useEffect(() => {
-        note.updateContent(textValue);
-    }, [textValue]);
-
-    useEffect(() => {
-        const keyDownHandler = (event: KeyboardEvent) => {
-            if (event.key === 'Escape' && editingEnable) {
-                event.preventDefault();
-                setEditingEnable(false);
-                onStopEditing?.();
-            }
-        };
-
-        document.addEventListener('keydown', keyDownHandler);
-
-        return() => {
-            document.removeEventListener('keydown', keyDownHandler);
-        };
-    }, [editingEnable]);
-
-    const SendTextChangeToNodeObject = (event: any) => {
-
-        const newContent = event.target.value;
-
-        setTextValue(newContent);
-    };
+        setUpdateTrigger(prev => prev + 1);
+    }, [position]);
 
     return (
         <Group
             draggable={true}
             x={position.coorX}
             y={position.coorY}
-
             onDragEnd={(event) => {
                 const node = event.target;
-
                 const absolutePosition = node.absolutePosition();
-
                 setPosition({
                     coorX: absolutePosition.x,
                     coorY: absolutePosition.y,
                 });
             }}
-
-            onDblClick={() => {
-                setEditingEnable(true);
-                onStartEditing?.();
-            }}
-
-            >
+        >
             <Rect
                 width={note.sizes.width}
                 height={note.sizes.height}
                 fill="#fffc99"
-                shadowBlur={editingEnable ? 20: 10}
-                shadowColor={editingEnable ? "#9a864fff" : undefined}
+                shadowBlur={10}
             />
-
-
-            <Html>
-                <textarea className="TextNodeEditorInput"
-                autoFocus
-                style={{
-                    position: `absolute`,
-                    width: `${note.sizes.width}px`,
-                    height: `${note.sizes.height}px`,
-                    visibility: editingEnable ? 'visible' : 'hidden'
-                }}
-                value={textValue}
-                onChange={SendTextChangeToNodeObject}
-                />
-            </Html>
 
             <Text
                 width={note.sizes.width}
-                height={note.sizes.height}
+                columns={note.sizes.height}
                 wrap="word"
-                visible={!editingEnable}
-
+                fontFamily={"Arial"}
                 text={note.content}
                 fontSize={15}
             />
@@ -120,3 +58,4 @@ interface TextNodeProps {
 };
 
 export default TextNode;
+

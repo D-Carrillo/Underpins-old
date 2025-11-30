@@ -80,8 +80,8 @@ test("Content char limit is more than it should be test", () => {
     expect(() => note.updateContent(content)).toThrowError("Overreach char limit in a note");
 }); 
 
-test("Note should be initialized to 150x200", () => {
+test("Note should be initialized to 150x250", () => {
     const note = new TextNode(any<string>(), any<number>(), any<number>());
     
-    expect(note.sizes).toEqual({ height:150, width:200 });
+    expect(note.sizes).toEqual({ height:150, width:250 });
 }); 

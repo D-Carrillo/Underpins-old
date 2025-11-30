@@ -1,5 +1,5 @@
-const WIDTH_SIZE = 200;
-const HEIGHT_SIZE = 150;
+const INIT_HEIGHT = 150;
+const INIT_COLUMNS = 250;
 const NOTE_CONTENT_LIMIT = 270;
 
 interface coordinates {
@@ -11,6 +11,7 @@ interface size {
     height: number;
     width: number;
 }
+
 export class TextNode 
 {
     createAt: number; 
@@ -26,7 +27,7 @@ export class TextNode
         this.content = content;     
         this.id = `${this.createAt} + ${Math.random().toString(36).substring(2,9)}`;
         this.position = {x: x_coordinate, y: y_coordinate};
-        this.sizes = {height: HEIGHT_SIZE, width:WIDTH_SIZE};
+        this.sizes = {height: INIT_HEIGHT, width:INIT_COLUMNS};
 
     }
 
