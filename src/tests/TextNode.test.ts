@@ -4,7 +4,7 @@ import { TextNode } from '../notes/TextNode.ts';
 function any<T>(): T {
     return undefined as unknown as T;
 }
-test("SkickyNote loads information", () => {
+test("StickyNote loads information", () => {
     const note = new TextNode("Information", any<number>(), any<number>());
 
     expect(note.content).toBe("Information");
@@ -75,8 +75,8 @@ describe("Changing the TextNote content test", () => {
 test("Content char limit is more than it should be test", () => {
     const note = new TextNode(any<string>(), any<number>(), any<number>());
 
-    var content = "x".repeat(301);
-    
+    const content = "x".repeat(301);
+
     expect(() => note.updateContent(content)).toThrowError("Overreach char limit in a note");
 }); 
 
