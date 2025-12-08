@@ -1,22 +1,19 @@
 import { Stage, Layer } from "react-konva";
 import { useEffect, useState } from "react";
-import TextNodes from "./TextNote.tsx";
-
-interface NodeData {
-  id: number;
-  posX: number;
-  posY: number;
-}
+import TextNote from "./TextNote.tsx";
+import { TextNote as CNOTE } from '../notes/TextNote.ts';
+import {NotesManager} from "../managers/NoteManager.ts";
 
 const Board = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-  const [notes, setNotes] = useState<NodeData[]>([]);
 
-  const addNode = (x: number, y: number) => {
-      //Make this function call the Manager, to create the note, and then put it into the setNotes
-    const newID = notes.length > 0 ? notes[notes.length - 1].id + 1 : 1;
-    setNotes((prevNodes) => [...prevNodes, { id: newID, posX: x, posY: y }]);
+  let Manager = NotesManager;
+  const [notes, setNotes] = useState<CNOTE[]>(Manager.loadNotes());
+
+  const addNode = () => {
+    const newNote = Manager.CreateNote()
+    setNotes(prevNotes => [...prevNotes, newNote]);
   };
 
   useEffect(() => {
@@ -28,7 +25,6 @@ const Board = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
 
   // Put all of this menu to a different component, this component should only handle the notes display.
   useEffect(() => {
@@ -46,7 +42,8 @@ const Board = () => {
       const button = document.createElement("button");
       button.textContent = "Add New Node";
       button.onclick = () => {
-        addNode(event.pageX, event.pageY);
+        // addNode(event.pageX, event.pageY);
+        addNode();
         menu.remove();
       };
 
@@ -67,10 +64,8 @@ const Board = () => {
   return (
       <Stage width={windowWidth} height={windowHeight}>
         <Layer>
-          {/*  Remove this dependency, Board should only output the notes, it should not even care about the types because
-          the NoteManager would only return the TSX component*/}
           {notes.map((note) => (
-              <TextNodes key={note.id} posX={note.posX} posY={note.posY} />
+              <TextNote key={note.id} concrete_note={note} />
           ))}
         </Layer>
       </Stage>

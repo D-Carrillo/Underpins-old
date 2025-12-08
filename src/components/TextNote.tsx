@@ -1,14 +1,14 @@
 import { Rect, Text, Group } from "react-konva";
-import { TextNode as TextN } from "../notes/TextNode.ts"
+import { TextNote as TextN } from "../notes/TextNote.ts"
 import React, { useState, useRef, useEffect } from "react";
 
-interface TextNodeProps {
-    posX: number,
-    posY: number,
+interface Props {
+    concrete_note: TextN;
 }
 
-const TextNote: React.FC<TextNodeProps> = ({ posX, posY }) => {
-    const noteRef = useRef(new TextN("Edit here", posX, posY));
+const TextNote: React.FC<Props> = ( {concrete_note}) => {
+
+    const noteRef = useRef(concrete_note);
 
     const note = noteRef.current;
 

@@ -12,7 +12,7 @@ interface size {
     width: number;
 }
 
-export class TextNode 
+export class TextNote
 {
     createAt: number; 
     content: string; 

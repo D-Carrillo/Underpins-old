@@ -1,18 +1,16 @@
 import { test, expect, describe } from 'vitest';
-import { TextNode } from '../notes/TextNode.ts';
+import { TextNote } from '../notes/TextNote.ts';
+import { any } from "./anyType.ts";
 
-function any<T>(): T {
-    return undefined as unknown as T;
-}
 test("StickyNote loads information", () => {
-    const note = new TextNode("Information", any<number>(), any<number>());
+    const note = new TextNote("Information", any<number>(), any<number>());
 
     expect(note.content).toBe("Information");
 });
 
 test("Created at the right time", () =>{
     const before = Date.now();
-    const note = new TextNode(any<string>(), any<number>(), any<number>()); 
+    const note = new TextNote(any<string>(), any<number>(), any<number>());
     const after = Date.now();
 
     expect(note.createAt).toBeGreaterThanOrEqual(before);
@@ -20,8 +18,8 @@ test("Created at the right time", () =>{
 });
 
 test("Constructor makes unique IDs", () => {
-    const note1 = new TextNode(any<string>(), any<number>(), any<number>());
-    const note2 = new TextNode(any<string>(), any<number>(), any<number>());
+    const note1 = new TextNote(any<string>(), any<number>(), any<number>());
+    const note2 = new TextNote(any<string>(), any<number>(), any<number>());
 
     expect(note1.id).not.toBe(note2.id);
 });
@@ -34,7 +32,7 @@ describe("Coordinate loading test", () => {
     [1,-1],
     [-1,1],
 ])("Creates coordinates (%i, %i)", (x,y) => {
-    const note = new TextNode(any<string>(), x, y); 
+    const note = new TextNote(any<string>(), x, y);
 
     expect(note.position.x).toBe(x);
     expect(note.position.y).toBe(y);
@@ -49,7 +47,7 @@ describe("Changing the coordinates test", () => {
         [-2323333,3333],
         [-12,-44,]
     ])("Change the note's coordinates (%i, %i)", (x,y) => {
-        const note = new TextNode(any<string>(), any<number>(), any<number>());
+        const note = new TextNote(any<string>(), any<number>(), any<number>());
 
         note.changeCoordinate(x,y);
 
@@ -64,7 +62,7 @@ describe("Changing the TextNote content test", () => {
         ["This".repeat(10)],
         ["x".repeat(270)]
     ])("Changing the TextNote content", (content) => {
-        const note = new TextNode(any<string>(), any<number>(), any<number>());
+        const note = new TextNote(any<string>(), any<number>(), any<number>());
 
         note.updateContent(content);
 
@@ -73,7 +71,7 @@ describe("Changing the TextNote content test", () => {
 });
 
 test("Content char limit is more than it should be test", () => {
-    const note = new TextNode(any<string>(), any<number>(), any<number>());
+    const note = new TextNote(any<string>(), any<number>(), any<number>());
 
     const content = "x".repeat(301);
 
@@ -81,7 +79,7 @@ test("Content char limit is more than it should be test", () => {
 }); 
 
 test("Note should be initialized to 150x250", () => {
-    const note = new TextNode(any<string>(), any<number>(), any<number>());
+    const note = new TextNote(any<string>(), any<number>(), any<number>());
     
     expect(note.sizes).toEqual({ height:150, width:250 });
 }); 
