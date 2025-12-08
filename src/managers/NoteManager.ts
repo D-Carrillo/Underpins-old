@@ -2,19 +2,30 @@ import {TextNote} from "../notes/TextNote.ts";
 import NoteFactory from "../Factories/NoteFactory.ts";
 
 class ManagerForNotes{
+    private notes: TextNote[];
+
+    constructor() {
+        this.notes = this.loadNotes();
+    }
+
     // Functions to implement
 
     // LoadNotesFromJSON()
-    // SaveANote()
+
+
+    AddANote(newNote : TextNote){
+        this.notes.push(newNote);
+    }
+
     // SaveNoteToJSON()
     // DeleteNote()
     // DeleteNoteFromJSON()
     // UpdateNoteInformation() - highly polymorphic
 
-
-    // Make the creating of notes rely on this
     CreateNote(x: number, y: number, type: string) : TextNote {
-        return NoteFactory.makeNote(x, y, type);
+        const newNote = NoteFactory.makeNote(x, y, type);
+        this.AddANote(newNote);
+        return newNote;
     }
 
     //Only for when we don't have JSON
