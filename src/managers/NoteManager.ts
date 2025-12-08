@@ -1,4 +1,5 @@
 import {TextNote} from "../notes/TextNote.ts";
+import NoteFactory from "../Factories/NoteFactory.ts";
 
 class ManagerForNotes{
     // Functions to implement
@@ -12,8 +13,8 @@ class ManagerForNotes{
 
 
     // Make the creating of notes rely on this
-    CreateNote(x: number, y: number) : TextNote {
-        return new TextNote("New note", x, y);
+    CreateNote(x: number, y: number, type: string) : TextNote {
+        return NoteFactory.makeNote(x, y, type);
     }
 
     //Only for when we don't have JSON

@@ -10,8 +10,8 @@ const Board = () => {
 
   const [notes, setNotes] = useState<CNOTE[]>(NotesManager.loadNotes());
 
-  const addNode = (x: number, y: number) => {
-    const newNote = NotesManager.CreateNote(x, y);
+  const addNode = (x: number, y: number, type: string) => {
+    const newNote = NotesManager.CreateNote(x, y, type);
     setNotes(prevNotes => [...prevNotes, newNote]);
   };
 
@@ -39,9 +39,9 @@ const Board = () => {
       menu.style.left = `${event.pageX}px`;
 
       const button = document.createElement("button");
-      button.textContent = "Add New Node";
+      button.textContent = "Add New Text Note";
       button.onclick = () => {
-        addNode(event.pageX, event.pageY);
+        addNode(event.pageX, event.pageY, "text");
         menu.remove();
       };
 
