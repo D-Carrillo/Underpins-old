@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import TextNote from "./TextNote.tsx";
 import { TextNote as CNOTE } from '../notes/TextNote.ts';
 import {NotesManager} from "../managers/NoteManager.ts";
+import {useContextMenu} from "../Hooks/Menu.tsx";
 
 const Board = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -25,39 +26,7 @@ const Board = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Put all of this menu to a different component, this component should only handle the notes display.
-  useEffect(() => {
-    const handleContextMenu = (event: MouseEvent) => {
-      event.preventDefault();
-
-      document.querySelectorAll(".custom-menu").forEach((el) => el.remove());
-
-      const menu = document.createElement("div");
-      menu.className = "custom-menu";
-      menu.style.position = "absolute";
-      menu.style.top = `${event.pageY}px`;
-      menu.style.left = `${event.pageX}px`;
-
-      const button = document.createElement("button");
-      button.textContent = "Add New Text Note";
-      button.onclick = () => {
-        addNode(event.pageX, event.pageY, "text");
-        menu.remove();
-      };
-
-      menu.appendChild(button);
-      document.body.appendChild(menu);
-
-      const closeMenu = () => menu.remove();
-      const escClose = (e: KeyboardEvent) => e.key === "Escape" && closeMenu();
-
-      setTimeout(() => document.addEventListener("click", closeMenu, { once: true }));
-      document.addEventListener("keydown", escClose, { once: true });
-    };
-
-    window.addEventListener("contextmenu", handleContextMenu);
-    return () => window.removeEventListener("contextmenu", handleContextMenu);
-  }, [notes]);
+  useContextMenu((x,y, type) => addNode(x,y, type));
 
   return (
       <Stage width={windowWidth} height={windowHeight}>
