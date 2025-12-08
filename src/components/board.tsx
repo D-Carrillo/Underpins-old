@@ -8,11 +8,10 @@ const Board = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
-  let Manager = NotesManager;
-  const [notes, setNotes] = useState<CNOTE[]>(Manager.loadNotes());
+  const [notes, setNotes] = useState<CNOTE[]>(NotesManager.loadNotes());
 
-  const addNode = () => {
-    const newNote = Manager.CreateNote()
+  const addNode = (x: number, y: number) => {
+    const newNote = NotesManager.CreateNote(x, y);
     setNotes(prevNotes => [...prevNotes, newNote]);
   };
 
@@ -42,8 +41,7 @@ const Board = () => {
       const button = document.createElement("button");
       button.textContent = "Add New Node";
       button.onclick = () => {
-        // addNode(event.pageX, event.pageY);
-        addNode();
+        addNode(event.pageX, event.pageY);
         menu.remove();
       };
 

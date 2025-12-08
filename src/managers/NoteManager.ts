@@ -12,10 +12,11 @@ class ManagerForNotes{
 
 
     // Make the creating of notes rely on this
-    CreateNote() : TextNote {
-        return new TextNote("New note", 1, 2);
+    CreateNote(x: number, y: number) : TextNote {
+        return new TextNote("New note", x, y);
     }
 
+    //Only for when we don't have JSON
     loadNotes(): TextNote[] {
         return [new TextNote("Type Here", 100, 200), new TextNote("Type here", 400, 100)];
     }
