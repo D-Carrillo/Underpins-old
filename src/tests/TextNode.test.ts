@@ -63,7 +63,7 @@ describe("Changing the TextNote content test", () => {
         [""],
         ["This".repeat(10)],
         ["x".repeat(270)]
-    ])("Changing the TextNode content", (content) => {
+    ])("Changing the TextNote content", (content) => {
         const note = new TextNode(any<string>(), any<number>(), any<number>());
 
         note.updateContent(content);

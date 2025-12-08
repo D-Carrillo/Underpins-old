@@ -7,7 +7,7 @@ interface TextNodeProps {
     posY: number,
 }
 
-const TextNode: React.FC<TextNodeProps> = ({ posX, posY }) => {
+const TextNote: React.FC<TextNodeProps> = ({ posX, posY }) => {
     const noteRef = useRef(new TextN("Edit here", posX, posY));
 
     const note = noteRef.current;
@@ -57,5 +57,5 @@ const TextNode: React.FC<TextNodeProps> = ({ posX, posY }) => {
     );
 };
 
-export default TextNode;
+export default TextNote;
 
