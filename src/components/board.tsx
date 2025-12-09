@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import TextNote from "./TextNote.tsx";
 import { TextNote as CNOTE } from '../notes/TextNote.ts';
 import {NotesManager} from "../managers/NoteManager.ts";
-import {useContextMenu} from "../Hooks/Menu.tsx";
+import {useContextMenu} from "../Hooks/BoardMenu.tsx";
 
 const Board = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -12,7 +12,7 @@ const Board = () => {
   const [notes, setNotes] = useState<CNOTE[]>(NotesManager.loadNotes());
 
   const addNode = (x: number, y: number, type: string) => {
-    const newNote = NotesManager.CreateNote(x, y, type);
+    const newNote = NotesManager.createNote(x, y, type);
     setNotes(prevNotes => [...prevNotes, newNote]);
   };
 
