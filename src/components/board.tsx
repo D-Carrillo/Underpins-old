@@ -1,20 +1,13 @@
 import { Stage, Layer } from "react-konva";
 import { useEffect, useState } from "react";
 import TextNote from "./TextNote.tsx";
-import { TextNote as CNOTE } from '../notes/TextNote.ts';
 import {NotesManager} from "../managers/NoteManager.ts";
 import {useContextMenu} from "../Hooks/BoardMenu.tsx";
+import { observer } from "mobx-react-lite";
 
-const Board = () => {
+const Board = observer(() => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-
-  const [notes, setNotes] = useState<CNOTE[]>(NotesManager.loadNotes());
-
-  const addNode = (x: number, y: number, type: string) => {
-    const newNote = NotesManager.createNote(x, y, type);
-    setNotes(prevNotes => [...prevNotes, newNote]);
-  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,18 +19,18 @@ const Board = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useContextMenu((x,y, type) => addNode(x,y, type));
+  useContextMenu();
 
   return (
       <Stage width={windowWidth} height={windowHeight}>
         <Layer>
-          {notes.map((note) => (
+          {NotesManager.notes.map((note) => (
               <TextNote key={note.id} concrete_note={note} />
           ))}
         </Layer>
       </Stage>
   );
-};
+});
 
 export default Board;
 

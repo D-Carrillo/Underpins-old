@@ -1,11 +1,13 @@
 import {TextNote} from "../notes/TextNote.ts";
 import NoteFactory from "../Factories/NoteFactory.ts";
+import { makeAutoObservable } from "mobx";
 
 class ManagerForNotes{
-    private notes: TextNote[];
+    public notes: TextNote[];
 
     constructor() {
         this.notes = this.loadNotes();
+        makeAutoObservable(this);
     }
 
     // Functions to implement
@@ -36,10 +38,9 @@ class ManagerForNotes{
     // DeleteNoteFromJSON()
     // UpdateNoteInformation() - highly polymorphic
 
-    createNote(x: number, y: number, type: string) : TextNote {
+    createNote(x: number, y: number, type: string) {
         const newNote = NoteFactory.makeNote(x, y, type);
         this.AddANote(newNote);
-        return newNote;
     }
 
     //Only for when we don't have JSON

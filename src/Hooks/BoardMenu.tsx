@@ -1,8 +1,7 @@
 import {useEffect} from "react";
+import {NotesManager} from "../managers/NoteManager.ts";
 
-type ContextMenuHandler = (x: number, y: number, type: string) => void;
-
-export function useContextMenu(onAddTextNote: ContextMenuHandler) {
+export function useContextMenu() {
     useEffect(() => {
         const handleContextMenu = (event: MouseEvent) => {
             event.preventDefault();
@@ -18,7 +17,7 @@ export function useContextMenu(onAddTextNote: ContextMenuHandler) {
             const button = document.createElement("button");
             button.textContent = "Add New Text Note";
             button.onclick = () => {
-                onAddTextNote(event.pageX, event.pageY, "text");
+                NotesManager.createNote(event.pageX, event.pageY, "text");
                 menu.remove();
             };
 
@@ -34,6 +33,5 @@ export function useContextMenu(onAddTextNote: ContextMenuHandler) {
 
         window.addEventListener("contextmenu", handleContextMenu);
         return () => window.removeEventListener("contextmenu", handleContextMenu);
-
-    }, [onAddTextNote]);
+    }, []);
 }
