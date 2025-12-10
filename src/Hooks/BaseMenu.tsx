@@ -1,7 +1,6 @@
 import {useEffect} from "react";
-import {NotesManager} from "../managers/NoteManager.ts";
 
-export function useContextMenu() {
+export function useContextMenu(wantedMenu: (e: MouseEvent, m: HTMLDivElement, t: string) => HTMLButtonElement, identifier: string) {
     useEffect(() => {
         const handleContextMenu = (event: MouseEvent) => {
             event.preventDefault();
@@ -14,12 +13,7 @@ export function useContextMenu() {
             menu.style.top = `${event.pageY}px`;
             menu.style.left = `${event.pageX}px`;
 
-            const button = document.createElement("button");
-            button.textContent = "Add New Text Note";
-            button.onclick = () => {
-                NotesManager.createNote(event.pageX, event.pageY, "text");
-                menu.remove();
-            };
+            const button = wantedMenu(event, menu, identifier);
 
             menu.appendChild(button);
             document.body.appendChild(menu);

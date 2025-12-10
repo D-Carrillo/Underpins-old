@@ -3,11 +3,15 @@ import NoteFactory from "../Factories/NoteFactory.ts";
 import { makeAutoObservable } from "mobx";
 
 class ManagerForNotes{
-    public notes: TextNote[];
+    private notes: TextNote[];
 
     constructor() {
         this.notes = this.loadNotes();
         makeAutoObservable(this);
+    }
+
+    public getNotes(): TextNote[] {
+        return this.notes;
     }
 
     // Functions to implement
@@ -24,7 +28,6 @@ class ManagerForNotes{
 
     deleteNote(id: string) {
         const newNotes = this.notes.filter(note => note.id !== id);
-
         this.notes.length = 0;
         this.notes = newNotes;
 

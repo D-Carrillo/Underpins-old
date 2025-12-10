@@ -1,6 +1,8 @@
 import { Rect, Text, Group } from "react-konva";
 import { TextNote as TextN } from "../notes/TextNote.ts"
 import React, { useState, useRef, useEffect } from "react";
+import { useContextMenu } from "../Hooks/BaseMenu.tsx";
+import {NoteMenu} from "../Hooks/NoteMenu.ts";
 
 interface Props {
     concrete_note: TextN;
@@ -23,6 +25,8 @@ const TextNote: React.FC<Props> = ( {concrete_note}) => {
         note.changeCoordinate(position.coorX, position.coorY);
         setUpdateTrigger(prev => prev + 1);
     }, [position]);
+
+    useContextMenu(NoteMenu, note.id);
 
     return (
         <Group
