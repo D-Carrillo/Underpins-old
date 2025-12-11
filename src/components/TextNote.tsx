@@ -1,8 +1,10 @@
-import { Rect, Text, Group, Layer } from "react-konva";
+import { Rect, Text, Group } from "react-konva";
 import { TextNote as TextN } from "../notes/TextNote.ts"
 import React, { useState, useRef, useEffect } from "react";
 import { useContextMenu } from "../Hooks/BaseMenu.tsx";
 import {NoteMenu} from "../Hooks/NoteMenu.ts";
+import { KonvaEventObject } from 'konva/lib/Node';
+
 
 interface Props {
     concrete_note: TextN;
@@ -26,40 +28,43 @@ const TextNote: React.FC<Props> = ( {concrete_note}) => {
         setUpdateTrigger(prev => prev + 1);
     }, [position]);
 
-    useContextMenu(NoteMenu, note.id);
-
     return (
-        <Layer>
-            <Group
-                draggable={true}
-                x={position.coorX}
-                y={position.coorY}
-                onDragEnd={(event) => {
-                    const node = event.target;
-                    const absolutePosition = node.absolutePosition();
-                    setPosition({
-                        coorX: absolutePosition.x,
-                        coorY: absolutePosition.y,
-                    });
-                }}
-            >
-                <Rect
-                    width={note.sizes.width}
-                    height={note.sizes.height}
-                    fill="#fffc99"
-                    shadowBlur={10}
-                />
+        <Group
+            draggable={true}
+            x={position.coorX}
+            y={position.coorY}
+            onDragEnd={(event) => {
+                const node = event.target;
+                const absolutePosition = node.absolutePosition();
+                setPosition({
+                    coorX: absolutePosition.x,
+                    coorY: absolutePosition.y,
+                });
+            }}
 
-                <Text
-                    width={note.sizes.width}
-                    columns={note.sizes.height}
-                    wrap="word"
-                    fontFamily={"Arial"}
-                    text={note.content}
-                    fontSize={15}
-                />
-            </Group>
-        </Layer>
+            onContextMenu={(e: KonvaEventObject<MouseEvent>) => {
+                e.cancelBubble = true;
+                e.evt.stopPropagation();
+                useContextMenu(e.evt, NoteMenu, note.id);
+            }}
+
+        >
+            <Rect
+                width={note.sizes.width}
+                height={note.sizes.height}
+                fill="#fffc99"
+                shadowBlur={10}
+            />
+
+            <Text
+                width={note.sizes.width}
+                columns={note.sizes.height}
+                wrap="word"
+                fontFamily={"Arial"}
+                text={note.content}
+                fontSize={15}
+            />
+        </Group>
     );
 };
 

@@ -1,31 +1,25 @@
-import {useEffect} from "react";
 
-export function useContextMenu(wantedMenu: (e: MouseEvent, m: HTMLDivElement, t: string) => HTMLButtonElement, identifier: string) {
-    useEffect(() => {
-        const handleContextMenu = (event: MouseEvent) => {
-            event.preventDefault();
+type MenuCreator = (e: MouseEvent, m: HTMLDivElement, t: string) => HTMLButtonElement;
 
-            document.querySelectorAll(".custom-menu").forEach((el) => el.remove());
+export function useContextMenu(event: MouseEvent,  wantedMenu: MenuCreator, identifier: string) {
+    event.preventDefault();
 
-            const menu = document.createElement("div");
-            menu.className = "custom-menu";
-            menu.style.position = "absolute";
-            menu.style.top = `${event.pageY}px`;
-            menu.style.left = `${event.pageX}px`;
+    document.querySelectorAll(".custom-menu").forEach((el) => el.remove());
 
-            const button = wantedMenu(event, menu, identifier);
+    const menu = document.createElement("div");
+    menu.className = "custom-menu";
+    menu.style.position = "absolute";
+    menu.style.top = `${event.pageY}px`;
+    menu.style.left = `${event.pageX}px`;
 
-            menu.appendChild(button);
-            document.body.appendChild(menu);
+    const button = wantedMenu(event, menu, identifier);
 
-            const closeMenu = () => menu.remove();
-            const escClose = (e: KeyboardEvent) => e.key === "Escape" && closeMenu();
+    menu.appendChild(button);
+    document.body.appendChild(menu);
 
-            setTimeout(() => document.addEventListener("click", closeMenu, {once: true}));
-            document.addEventListener("keydown", escClose, {once: true});
-        };
+    const closeMenu = () => menu.remove();
+    const escClose = (e: KeyboardEvent) => e.key === "Escape" && closeMenu();
 
-        window.addEventListener("contextmenu", handleContextMenu);
-        return () => window.removeEventListener("contextmenu", handleContextMenu);
-    }, []);
+    setTimeout(() => document.addEventListener("click", closeMenu, {once: true}));
+    document.addEventListener("keydown", escClose, {once: true});
 }
