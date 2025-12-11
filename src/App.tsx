@@ -1,9 +1,9 @@
-import Board from "./components/board.tsx"
+import UIController from "./components/UIController.tsx";
 
 const App = () => {
 
   return (
-    <Board/>
+    <UIController/>
   );
 }
 

@@ -1,8 +1,8 @@
 import { Rect, Text, Group } from "react-konva";
 import { TextNote as TextN } from "../notes/TextNote.ts"
 import React, { useState, useRef, useEffect } from "react";
-import { useContextMenu } from "../Hooks/BaseMenu.tsx";
-import {NoteMenu} from "../Hooks/NoteMenu.ts";
+import { useContextMenu } from "./BaseMenu.tsx";
+import {NoteMenu} from "../Menus/NoteMenu.ts";
 import { KonvaEventObject } from 'konva/lib/Node';
 
 

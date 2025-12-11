@@ -1,29 +1,34 @@
 import { Stage, Layer } from "react-konva";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import TextNote from "./TextNote.tsx";
 import {NotesManager} from "../managers/NoteManager.ts";
 import { observer } from "mobx-react-lite"
-import {useContextMenu} from "../Hooks/BaseMenu.tsx";
-import {BoardMenu} from "../Hooks/BoardMenu.ts";
+import {useContextMenu} from "./BaseMenu.tsx";
+import {BoardMenu} from "../Menus/BoardMenu.ts";
 import { KonvaEventObject } from 'konva/lib/Node';
+import React from 'react';
 
+interface Props {
+    width: number;
+    height: number;
+}
 
-const Board = observer(() => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+const Board: React.FC<Props> = observer(({ width, height }) => {
+  // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  // const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-      setWindowHeight(window.innerHeight);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setWindowWidth(window.innerWidth);
+  //     setWindowHeight(window.innerHeight);
+  //   };
+  //
+  //   window.addEventListener("resize", handleResize);
+  //   return () => window.removeEventListener("resize", handleResize);
+  // }, []);
 
   return (
-      <Stage width={windowWidth} height={windowHeight}
+      <Stage width={width} height={height}
            onContextMenu={(event: KonvaEventObject<MouseEvent>) => {
              useContextMenu(event.evt, BoardMenu, "text");
            }}
