@@ -1,7 +1,6 @@
-
 type MenuCreator = (e: MouseEvent, m: HTMLDivElement, t: string) => HTMLButtonElement;
 
-export function useContextMenu(event: MouseEvent,  wantedMenu: MenuCreator, identifier: string) {
+export function useContextMenu(event: MouseEvent,  wantedMenu: MenuCreator, wildcard: string) {
     event.preventDefault();
 
     document.querySelectorAll(".custom-menu").forEach((el) => el.remove());
@@ -12,7 +11,7 @@ export function useContextMenu(event: MouseEvent,  wantedMenu: MenuCreator, iden
     menu.style.top = `${event.pageY}px`;
     menu.style.left = `${event.pageX}px`;
 
-    const button = wantedMenu(event, menu, identifier);
+    const button = wantedMenu(event, menu, wildcard);
 
     menu.appendChild(button);
     document.body.appendChild(menu);

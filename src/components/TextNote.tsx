@@ -69,4 +69,3 @@ const TextNote: React.FC<Props> = ( {concrete_note}) => {
 };
 
 export default TextNote;
-

@@ -25,18 +25,14 @@ class ManagerForNotes{
 
     // SaveNoteToJSON()
 
-
     deleteNote(id: string) {
         const newNotes = this.notes.filter(note => note.id !== id);
         this.notes.length = 0;
         this.notes = newNotes;
 
         //For the note that is being deleted, you have to call the database or JSON to delete from its system by passing the ID
+        // Might not need, for a JSON we could just remake the json with the new notes array, maybe on a database the implementation might be different.
     }
-
-    //Using arr.filter() on the unique ID
-    //setItems(items => items.filter(item => item.id !== id));
-
 
     // DeleteNoteFromJSON()
     // UpdateNoteInformation() - highly polymorphic

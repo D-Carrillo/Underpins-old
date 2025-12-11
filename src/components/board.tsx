@@ -24,8 +24,8 @@ const Board = observer(() => {
 
   return (
       <Stage width={windowWidth} height={windowHeight}
-           onContextMenu={(e: KonvaEventObject<MouseEvent>) => {
-             useContextMenu(e.evt, BoardMenu, "text");
+           onContextMenu={(event: KonvaEventObject<MouseEvent>) => {
+             useContextMenu(event.evt, BoardMenu, "text");
            }}
       >
         <Layer>
@@ -38,4 +38,3 @@ const Board = observer(() => {
 });
 
 export default Board;
-

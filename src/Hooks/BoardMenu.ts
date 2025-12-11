@@ -4,8 +4,6 @@ export function BoardMenu(event: MouseEvent, menu: HTMLDivElement, type:string):
     const button = document.createElement("button");
     button.textContent = "Add New Text Note";
 
-    console.log(event);
-
     button.onclick = () => {
         NotesManager.createNote(event.pageX, event.pageY, type);
         menu.remove();
