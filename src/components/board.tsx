@@ -1,5 +1,4 @@
 import { Stage, Layer } from "react-konva";
-// import { useEffect, useState } from "react";
 import TextNote from "./TextNote.tsx";
 import {NotesManager} from "../managers/NoteManager.ts";
 import { observer } from "mobx-react-lite"
@@ -14,19 +13,6 @@ interface Props {
 }
 
 const Board: React.FC<Props> = observer(({ width, height }) => {
-  // const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  // const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setWindowWidth(window.innerWidth);
-  //     setWindowHeight(window.innerHeight);
-  //   };
-  //
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, []);
-
   return (
       <Stage width={width} height={height}
            onContextMenu={(event: KonvaEventObject<MouseEvent>) => {
