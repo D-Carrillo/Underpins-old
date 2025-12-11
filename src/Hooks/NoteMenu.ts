@@ -5,7 +5,7 @@ export function NoteMenu(event: MouseEvent, menu: HTMLDivElement, id: string): H
     const button = document.createElement("button");
     button.textContent = "Delete Text Note";
 
-    console.log (event);
+    console.log(event);
 
     button.onclick = () => {
         NotesManager.deleteNote(id);

@@ -1,4 +1,4 @@
-import { Stage, Layer } from "react-konva";
+import { Stage } from "react-konva";
 import { useEffect, useState } from "react";
 import TextNote from "./TextNote.tsx";
 import {NotesManager} from "../managers/NoteManager.ts";
@@ -24,11 +24,9 @@ const Board = observer(() => {
 
   return (
       <Stage width={windowWidth} height={windowHeight}>
-        <Layer>
           {NotesManager.getNotes().map((note) => (
               <TextNote key={note.id} concrete_note={note} />
           ))}
-        </Layer>
       </Stage>
   );
 });

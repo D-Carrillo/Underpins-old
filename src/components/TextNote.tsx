@@ -1,4 +1,4 @@
-import { Rect, Text, Group } from "react-konva";
+import { Rect, Text, Group, Layer } from "react-konva";
 import { TextNote as TextN } from "../notes/TextNote.ts"
 import React, { useState, useRef, useEffect } from "react";
 import { useContextMenu } from "../Hooks/BaseMenu.tsx";
@@ -29,35 +29,37 @@ const TextNote: React.FC<Props> = ( {concrete_note}) => {
     useContextMenu(NoteMenu, note.id);
 
     return (
-        <Group
-            draggable={true}
-            x={position.coorX}
-            y={position.coorY}
-            onDragEnd={(event) => {
-                const node = event.target;
-                const absolutePosition = node.absolutePosition();
-                setPosition({
-                    coorX: absolutePosition.x,
-                    coorY: absolutePosition.y,
-                });
-            }}
-        >
-            <Rect
-                width={note.sizes.width}
-                height={note.sizes.height}
-                fill="#fffc99"
-                shadowBlur={10}
-            />
+        <Layer>
+            <Group
+                draggable={true}
+                x={position.coorX}
+                y={position.coorY}
+                onDragEnd={(event) => {
+                    const node = event.target;
+                    const absolutePosition = node.absolutePosition();
+                    setPosition({
+                        coorX: absolutePosition.x,
+                        coorY: absolutePosition.y,
+                    });
+                }}
+            >
+                <Rect
+                    width={note.sizes.width}
+                    height={note.sizes.height}
+                    fill="#fffc99"
+                    shadowBlur={10}
+                />
 
-            <Text
-                width={note.sizes.width}
-                columns={note.sizes.height}
-                wrap="word"
-                fontFamily={"Arial"}
-                text={note.content}
-                fontSize={15}
-            />
-        </Group>
+                <Text
+                    width={note.sizes.width}
+                    columns={note.sizes.height}
+                    wrap="word"
+                    fontFamily={"Arial"}
+                    text={note.content}
+                    fontSize={15}
+                />
+            </Group>
+        </Layer>
     );
 };
 
