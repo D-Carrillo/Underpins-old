@@ -1,9 +1,11 @@
 import Board from "./board.tsx";
 import Workshop from "./Workshop.tsx";
 import { useState, useEffect } from "react";
+import { observer } from "mobx-react-lite"
+import { WorkshopManager } from "../managers/WorkshopManager.ts";
 
 
-const UIController = () => {
+const UIController = observer(() => {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [windowHeight, setWindowHeight] = useState(window.innerHeight);
@@ -21,13 +23,16 @@ const UIController = () => {
     return (
         <div style={{display:'flex'}}>
             <div style={{outline:'2px solid red'}}>
-                <Board width={windowWidth * .7} height={windowHeight}/>
+                <Board width={WorkshopManager.isOpen()? windowWidth * .6 : windowWidth} height={windowHeight}/>
             </div>
-            <div  style={{outline:'2px solid blue'}}>
-                <Workshop width={windowWidth * .3} height={windowHeight}/>
-            </div>
+
+            { WorkshopManager.isOpen() &&
+                <div  style={{outline:'2px solid blue'}}>
+                    <Workshop width={windowWidth * .4} height={windowHeight} note={WorkshopManager.getNote()}/>
+                </div>
+            }
         </div>
     )
-}
+});
 
 export default  UIController;

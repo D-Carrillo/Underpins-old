@@ -47,9 +47,6 @@ class ManagerForNotes{
         return [new TextNote("Type Here", 100, 200), new TextNote("Type here", 400, 100)];
     }
 
-    // First thing to implement this, would be the visuals.
-    // -> just make the Workshop be able to write and then save to the note object.
-
 }
 
 export const NotesManager = new ManagerForNotes();

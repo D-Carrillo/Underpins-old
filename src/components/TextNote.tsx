@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useContextMenu } from "./BaseMenu.tsx";
 import {NoteMenu} from "../Menus/NoteMenu.ts";
 import { KonvaEventObject } from 'konva/lib/Node';
-
+import { WorkshopManager } from "../managers/WorkshopManager.ts";
 
 interface Props {
     concrete_note: TextN;
@@ -46,6 +46,15 @@ const TextNote: React.FC<Props> = ( {concrete_note}) => {
                 e.cancelBubble = true;
                 e.evt.stopPropagation();
                 useContextMenu(e.evt, NoteMenu, note.id);
+            }}
+
+            onClick={() => {
+                WorkshopManager.sendNoteToWorkshop(note);
+
+                // This should only happen when the workshop is not open,
+                // you have to make it so it would only change the notes if is already open.
+                // And if the user touch the board then it would leave.
+                WorkshopManager.workshopToggle();
             }}
 
         >
