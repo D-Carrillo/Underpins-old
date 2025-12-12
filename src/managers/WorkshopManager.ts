@@ -1,33 +1,25 @@
-import {TextNote} from "../notes/TextNote.ts";
 import { makeAutoObservable } from "mobx";
+import {Workshop} from "../notes/Workshop.ts";
+import {TextNote} from "../notes/TextNote.ts";
 
 class ManagerTheWorkShop{
-    private workShopOpen = false;
-    private note!:TextNote;
+    private workshops:Workshop[] = [];
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    workshopToggle() {
-        this.workShopOpen = !this.workShopOpen;
-    }
-
-    isOpen(): boolean {
-        return this.workShopOpen;
-    }
-
-    sendNoteToWorkshop(note: TextNote) {
-        this.note = note;
+    makeWorkshop(x_pos: number, y_pos: number, note: TextNote) {
+        this.workshops.push(new Workshop(note.content, x_pos, y_pos, note));
     }
 
     sendUpdatedNoteToNoteManager(info: string) {
-        console.log(this.note, info);
+        console.log(this.workshops, info);
         //Send information to be safe
     }
 
-    getNote(): TextNote {
-        return this.note;
+    getWorkshops() {
+        return this.workshops;
     }
 }
 

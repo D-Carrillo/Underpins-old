@@ -1,18 +1,33 @@
 import React from 'react';
-import { Stage } from 'react-konva';
-import {TextNote} from "../notes/TextNote.ts";
+import { Group, Rect, Text } from 'react-konva';
+import {Workshop as Shop} from "../notes/Workshop.ts";
 
 interface Props {
-    width: number;
-    height: number;
-    note: TextNote
+    workshop: Shop;
 }
 
-const Workshop: React.FC<Props> = ({width, height, note}) => {
-    console.log(note);
+const Workshop: React.FC<Props> = ({workshop}) => {
     return (
-        <Stage width={width} height={height}>
-        </Stage>
+        <Group
+            x={workshop.position.x}
+            y={workshop.position.y}
+        >
+            <Rect
+                width={workshop.sizes.width}
+                height={workshop.sizes.height}
+                fill="#fffc99"
+                shadowBlur={10}
+            />
+
+            <Text
+                width={workshop.sizes.width}
+                columns={workshop.sizes.height}
+                wrap="word"
+                fontFamily={"Arial"}
+                text={workshop.content}
+                fontSize={15}
+            />
+        </Group>
     )
 }
 

@@ -48,13 +48,8 @@ const TextNote: React.FC<Props> = ( {concrete_note}) => {
                 useContextMenu(e.evt, NoteMenu, note.id);
             }}
 
-            onClick={() => {
-                WorkshopManager.sendNoteToWorkshop(note);
-
-                // This should only happen when the workshop is not open,
-                // you have to make it so it would only change the notes if is already open.
-                // And if the user touch the board then it would leave.
-                WorkshopManager.workshopToggle();
+            onClick={(e: KonvaEventObject<MouseEvent>) => {
+                WorkshopManager.makeWorkshop(e.evt.x, e.evt.y, note);
             }}
 
         >

@@ -30,6 +30,8 @@ class ManagerForNotes{
         this.notes.length = 0;
         this.notes = newNotes;
 
+        // Need to delete the workshop if is open.
+
         //For the note that is being deleted, you have to call the database or JSON to delete from its system by passing the ID
         // Might not need, for a JSON we could just remake the json with the new notes array, maybe on a database the implementation might be different.
     }
