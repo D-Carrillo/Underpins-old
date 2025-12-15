@@ -5,9 +5,7 @@ import { observer } from "mobx-react-lite"
 import {useContextMenu} from "./BaseMenu.tsx";
 import {BoardMenu} from "../Menus/BoardMenu.ts";
 import { KonvaEventObject } from 'konva/lib/Node';
-import { WorkshopManager } from "../managers/WorkshopManager.ts";
 import React from 'react';
-import Workshop from "./Workshop.tsx";
 
 interface Props {
     width: number;
@@ -24,10 +22,6 @@ const Board: React.FC<Props> = observer(({ width, height }) => {
         <Layer>
             {NotesManager.getNotes().map((note) => (
                 <TextNote key={note.id} concrete_note={note} />
-            ))}
-
-            {WorkshopManager.getWorkshops().length > 0 &&  WorkshopManager.getWorkshops().map((workshop) => (
-                <Workshop key={workshop.id} workshop={workshop} />
             ))}
         </Layer>
       </Stage>
