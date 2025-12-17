@@ -6,6 +6,8 @@ import {NoteMenu} from "../Menus/NoteMenu.ts";
 import { KonvaEventObject } from 'konva/lib/Node';
 import TextEditor from './TextEditor.tsx';
 import Konva from "konva";
+import { Html } from 'react-konva-utils';
+
 
 interface Props {
     concrete_note: TextN;
@@ -26,11 +28,11 @@ const TextNote: React.FC<Props> = ({concrete_note}) => {
     });
 
     const handleTextChange = useCallback((newText: string) => {
-       noteRef.current.updateContent(newText);
+        noteRef.current.updateContent(newText);
     }, []);
 
     const handleDblClick = useCallback(() => {
-       setIsEditing(true);
+        setIsEditing(true);
     }, []);
 
     const [, setUpdateTrigger] = useState(0);
@@ -74,11 +76,48 @@ const TextNote: React.FC<Props> = ({concrete_note}) => {
                 width={note.sizes.width}
                 columns={note.sizes.height}
                 wrap="word"
-                fontFamily={"Arial"}
+                fontFamily={"Helvetica"}
                 text={note.content}
                 fontSize={15}
-                visible ={!isEditing}
+                visible ={false}
             />
+
+            {!isEditing && textRef.current &&
+                <Html>
+                    <p
+                        style={{
+                            position: "absolute",
+                            top: textRef.current!.y() + "px",
+                            left: textRef.current!.x() + "px",
+                            width: textRef.current!.width() - textRef.current!.padding() * 2 + "px",
+                            height: textRef.current!.height() - textRef.current!.padding() * 2 + "px",
+
+                            fontFamily: textRef.current!.fontFamily(),
+                            fontSize: textRef.current!.fontSize() + "px",
+                            lineHeight: `${textRef.current!.lineHeight() * textRef.current!.fontSize()}px`,
+                            textAlign: textRef.current!.align() as CanvasTextAlign,
+                            color: textRef.current!.fill() as string,
+
+                            padding: "0px",
+                            margin: "0px",
+
+                            whiteSpace: "pre-wrap",
+                            wordWrap: "break-word",
+                            overflow: "hidden",
+                            boxSizing: "border-box",
+
+                            background: "transparent",
+                            pointerEvents: "none",
+                            userSelect: "none",
+
+                            visibility: isEditing ? "hidden" : "visible",
+                        }}
+                    >
+                        {note.content}
+                    </p>
+                </Html>
+
+            }
 
             {isEditing && (
                 <TextEditor textNode={textRef.current!} onChange={handleTextChange} onClose={() => setIsEditing(false)}/>

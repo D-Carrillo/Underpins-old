@@ -13,11 +13,16 @@ interface Props {
 }
 
 const Board: React.FC<Props> = observer(({ width, height }) => {
+
+   const ratio = window.devicePixelRatio;
+
   return (
       <Stage width={width} height={height}
            onContextMenu={(event: KonvaEventObject<MouseEvent>) => {
              useContextMenu(event.evt, BoardMenu, "text");
            }}
+
+           pixelRatio={ ratio }
       >
         <Layer>
             {NotesManager.getNotes().map((note) => (

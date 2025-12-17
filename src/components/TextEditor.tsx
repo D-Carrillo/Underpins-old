@@ -19,7 +19,7 @@ const TextArea = (props: { textNode: Konva.Text, onChange: (newText: string) => 
         textarea.style.top = `${areaPosition.y}px`;
         textarea.style.left = `${areaPosition.x}px`;
         textarea.style.width = `${props.textNode.width() - props.textNode.padding() * 2}px`;
-        textarea.style.height = `${props.textNode.height() - props.textNode.padding() * + 5}px`;
+        textarea.style.height = `${props.textNode.height() - props.textNode.padding() * 2}px`;
         textarea.style.fontSize = `${props.textNode.fontSize()}px`;
         textarea.style.border = 'none';
         textarea.style.padding = '0px';
@@ -28,8 +28,8 @@ const TextArea = (props: { textNode: Konva.Text, onChange: (newText: string) => 
         textarea.style.background = 'none';
         textarea.style.outline = 'none';
         textarea.style.resize = 'none';
-        textarea.style.lineHeight = `${props.textNode.lineHeight()}`;
-        textarea.style.fontSize = props.textNode.fontFamily();
+        textarea.style.lineHeight = `${props.textNode.lineHeight() * props.textNode.fontSize()}px`;
+        textarea.style.fontFamily = props.textNode.fontFamily();
         textarea.style.transformOrigin = "left top";
         textarea.style.textAlign = props.textNode.align();
         textarea.style.color = `${props.textNode.fill()}`;
